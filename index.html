@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#090812"><title>DBD CHALLENGE — Челлендж</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="fx" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div id="particles"></div><div class="grid"></div></div>
+<main id="app">
+<section id="splash" class="screen active"><div class="splash-card glass">
+<div class="logo-mark">
+    <img src="assets/logo/logo.png" alt="PHG LIVE">
+</div>
+<h1>DBD <span>CHALLENGE</span></h1><p class="tagline">Докажи, что ты достоин пройти этот челлендж до конца.</p>
+<button class="btn primary" data-action="start">НАЧАТЬ ЧЕЛЛЕНДЖ</button>
+<br>
+<button class="text-btn" data-action="history">ИСТОРИЯ МАТЧЕЙ</button>
+</div></section>
+
+<section id="mode" class="screen"><header><div class="brand">DBD<span> CHALLENGE</span></div><button class="icon-btn" data-action="history">☷</button></header>
+<div class="section-head"><p class="eyebrow">01 // ВЫБОР РЕЖИМА</p><h2>КАК БУДЕШЬ ИГРАТЬ?</h2><p>Выбери роль — система сама проведёт тебя через челлендж.</p></div>
+<div class="mode-grid">
+<button class="mode-card tilt" data-mode="killer">
+  <img class="mode-character" src="assets/modes/killer.png" alt="Убийца" onerror="this.style.display='none'">
+  <span class="mode-content"><strong>КИЛЛЕР</strong><small>Убей их всех.</small></span>
+</button>
+<button class="mode-card tilt" data-mode="solo">
+  <img class="mode-character" src="assets/modes/solo-survivor.png" alt="Выживший" onerror="this.style.display='none'">
+  <span class="mode-content"><strong>СОЛО ВЫЖИВШИЙ</strong><small>Выживи Соло.</small></span>
+</button>
+<button class="mode-card tilt" data-mode="party">
+  <img class="mode-character mode-character-party" src="assets/modes/party-survivor.png" alt="Команда выживших" onerror="this.style.display='none'">
+  <span class="mode-content"><strong>ПАТИ ВЫЖИВШИХ</strong><small>Выживите вместе.</small></span>
+</button>
+</div></section>
+
+<section id="setup" class="screen"><header><button class="back" data-action="mode">←</button><div class="brand">НАСТРОЙКА ИГРОКОВ</div></header><div id="setupContent" class="panel glass"></div></section>
+
+<section id="quiz" class="screen"><header><div class="brand">ЧЕЛЛЕНДЖ <span id="quizRole"></span></div><div class="hud"><b id="levelHud">УР. 1</b><span id="playerHud"></span></div></header>
+<div class="quiz-layout"><aside class="side-panel glass"><p class="eyebrow">ПРОГРЕСС</p><div id="playerProgress"></div><div class="mini-ladder" id="miniLadder"></div></aside>
+<div class="quiz-panel glass"><div class="question-meta"><span id="qNumber">ВОПРОС 1</span><span id="perkCount">ПЕРК 1 / 4</span></div>
+<div class="progress"><i id="qProgress"></i></div><p id="category" class="eyebrow"></p><h2 id="question"></h2><div id="answers" class="answers"></div><div id="feedback" class="feedback"></div></div></div></section>
+
+<section id="perkReveal" class="screen"><header><div class="brand">ПЕРК <span>ОТКРЫТ</span></div><b id="revealLevel">УР. 1</b></header>
+<div class="reveal-wrap panel glass"><p class="eyebrow" id="revealEyebrow">РЕЗУЛЬТАТ ДВУХ ОТВЕТОВ</p><h2 id="revealTitle">ТЫ ПОЛУЧИЛ ПЕРК</h2>
+<div id="revealedPerk" class="revealed-perk"></div><button class="btn primary" data-action="continuePerk">ПРОДОЛЖИТЬ</button></div></section>
+
+<section id="build" class="screen"><header><div class="brand">БИЛД <span>СОБРАН</span></div><b id="buildLevel">УР. 1</b></header>
+<div class="build-wrap"><p class="eyebrow" id="buildEyebrow">ТВОЙ БИЛД</p><h2 id="buildTitle">ЧЕЛЛЕНДЖ ЗАВЕРШЁН</h2><div id="perkGrid" class="perk-grid"></div><button class="btn primary" data-action="continueBuild">ПРОДОЛЖИТЬ</button></div></section>
+
+<section id="ready" class="screen"><header><div class="brand">ПРОВЕРКА <span>ГОТОВНОСТИ</span></div></header><div class="panel glass ready-panel"><p class="eyebrow">ВСЕ БИЛДЫ ГОТОВЫ</p><h2>ГОТОВЫ?</h2><div id="readyList"></div><button id="readyBtn" class="btn primary">ГОТОВ</button></div></section>
+
+<section id="match" class="screen"><header><div class="brand">ПРОТОКОЛ <span>МАТЧА</span></div></header><div class="panel glass match-panel"><p class="eyebrow">ЦЕЛЬ</p><h2>СЫГРАЙ МАТЧ</h2><p>Используй созданный билд в Dead by Daylight и укажи результат.</p><div id="matchExtra"></div></div></section>
+
+<section id="result" class="screen"><div class="result-screen"><div id="resultIcon"></div><p class="eyebrow" id="resultEyebrow"></p><h1 id="resultTitle"></h1><p id="resultText"></p><div id="resultLevel" class="level-change"></div><div id="resultActions" class="result-actions"></div></div></section>
+
+<section id="ladder" class="screen"><header><div class="brand">ЛЕСТНИЦА <span>ПРОГРЕССА</span></div></header><div class="ladder-wrap panel glass"><p class="eyebrow">ТЕКУЩАЯ ПОЗИЦИЯ</p><h2>УРОВЕНЬ <span id="ladderLevel">1</span> / 15</h2><div id="ladder" class="ladder"></div></div></section>
+
+<section id="history" class="screen"><header><button class="back" data-action="mode">←</button><div class="brand">ИСТОРИЯ <span>МАТЧЕЙ</span></div></header><div id="historyList" class="history-list"></div><div style="text-align:center;margin:25px"><button class="text-btn" data-action="reset">СБРОСИТЬ ПРОГРЕСС</button></div></section>
+</main><div id="toast"></div>
+<script src="data/questions.js"></script><script src="data/perks.js"></script><script src="app.js"></script>
+</body></html>
