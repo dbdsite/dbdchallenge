@@ -1098,3 +1098,5 @@ header {
     height: 100%;
     object-fit: contain;
 }
+
+.build-note{grid-column:1/-1;margin:0 0 8px;padding:14px 16px;border:1px solid #57e8ff33;background:#57e8ff08;border-radius:14px;color:var(--muted);line-height:1.5;font-size:14px}
