@@ -677,6 +677,78 @@ const badSurvivorPerks=[
   {"name":"Командная работа: приглушение","englishName":"Teamwork Soft Spoken","image":"assets/perks/T_UI_iconsPerks_TeamworkSoftSpoken.png","desc":"Перк из набора DBD."}
 ];
 
+// Владелец уникального перка. Если перк общий, показываем это явно.
+const PERK_OWNERS={
+  "Agitation":"Trapper","Brutal Strength":"Trapper","Unnerving Presence":"Trapper",
+  "Predator":"Wraith","Bloodhound":"Wraith","Shadowborn":"Wraith",
+  "Enduring":"Hillbilly","Lightborn":"Hillbilly","Tinkerer":"Hillbilly",
+  "Stridor":"Nurse","Thanatophobia":"Nurse","A Nurses Calling":"Nurse",
+  "Beast Of Prey":"Huntress","Territorial Imperative":"Huntress","Huntress Lullaby":"Huntress",
+  "Overwhelming Presence":"Doctor","Monitor And Abuse":"Doctor","Overcharge":"Doctor",
+  "Hex Undying":"Blight","Dragon's Grip":"Blight","Hex Blood Favor":"Blight",
+  "Save The Best For Last":"The Shape","Play With Your Food":"The Shape","Dying Light":"The Shape",
+  "Knock Out":"The Cannibal","BBQ And Chili":"The Cannibal","Franklins Loss":"The Cannibal",
+  "Fire Up":"The Nightmare","Remember Me":"The Nightmare","Blood Warden":"The Nightmare",
+  "Make Your Choice":"The Pig","Surveillance":"The Pig","Hangmans Trick":"The Pig",
+  "Bamboozle":"The Clown","Coulrophobia":"The Clown","Pop Goes The Weasel":"The Clown",
+  "Spirit Fury":"The Spirit","Haunted Ground":"The Spirit","Rancor":"The Spirit",
+  "Discordance":"The Legion","Mad Grit":"The Legion","Iron Maiden":"The Legion",
+  "Corrupt Intervention":"The Plague","Dark Devotion":"The Plague","Infectious Fright":"The Plague",
+  "Im All Ears":"The Ghost Face","Thrilling Tremors":"The Ghost Face","Furtive Chase":"The Ghost Face",
+  "Surge":"The Demogorgon","Mind Breaker":"The Demogorgon","Cruel Confinement":"The Demogorgon",
+  "Zanshin Tactics":"The Oni","Blood Echo":"The Oni","Nemesis":"The Oni",
+  "Gear Head":"The Deathslinger","Dead Man Switch":"The Deathslinger","Hex Retribution":"The Deathslinger",
+  "Forced Penance":"The Executioner","Trail Of Torment":"The Executioner","Deathbound":"The Executioner",
+  "Hoarder":"The Twins","Oppression":"The Twins","Coup De Grace":"The Twins",
+  "Starstruck":"The Trickster","No Way Out":"The Trickster","Hex Crowd Control":"The Trickster",
+  "Hysteria":"The Nemesis","Eruption":"The Nemesis","Lethal Pursuer":"The Nemesis",
+  "Deadlock":"The Cenobite","Scourge Hook Gift Of Pain":"The Cenobite","Hex Plaything":"The Cenobite",
+  "Grim Embrace":"The Artist","Scourge Hook Pain Resonance":"The Artist","Hex Pentimento":"The Artist",
+  "Call Of Brine":"The Onryo","Flood Of Rage":"The Onryo","Merciless Storm":"The Onryo",
+  "Dissolution":"The Dredge","Darkness Revelated":"The Dredge","Septic Touch":"The Dredge",
+  "Nowhere To Hide":"The Knight","Hex Face The Darkness":"The Knight","Hubris":"The Knight",
+  "Game Afoot":"The Skull Merchant","Leverage":"The Skull Merchant","THWACK":"The Skull Merchant",
+  "Genetic Limits":"The Singularity","Forced Hesitation":"The Singularity","Machine Learning":"The Singularity",
+  "Ultimate Weapon":"The Xenomorph","Alien Instinct":"The Xenomorph","Rapid Brutality":"The Xenomorph",
+  "friends Till The End":"The Good Guy","batteries Included":"The Good Guy","two Can Play":"The Good Guy",
+  "Unforeseen":"The Unknown","Unbound":"The Unknown","Undone":"The Unknown",
+  "Human Greed":"The Dark Lord","Dominance":"The Dark Lord","Languid Touch":"The Dark Lord",
+  "Adrenaline":"Meg Thomas","Quick & Quiet":"Meg Thomas","Sprint Burst":"Meg Thomas",
+  "Kindred":"Общий","Self-Care":"Claudette Morel","Empathy":"Claudette Morel","Botany Knowledge":"Claudette Morel",
+  "Iron Will":"Jake Park","Calm Spirit":"Jake Park","Saboteur":"Jake Park",
+  "Bond":"Dwight Fairfield","Leader":"Dwight Fairfield","Prove Thyself":"Dwight Fairfield",
+  "Ace In The Hole":"Ace Visconti","Open-Handed":"Ace Visconti","Up The Ante":"Ace Visconti",
+  "Balanced Landing":"Nea Karlsson","Urban Evasion":"Nea Karlsson","Streetwise":"Nea Karlsson",
+  "Lithe":"Feng Min","Technician":"Feng Min","Alert":"Feng Min",
+  "Vigil":"Quentin Smith","Pharmacy":"Quentin Smith","Wake Up!":"Quentin Smith",
+  "Windows Of Opportunity":"Kate Denson","Boil Over":"Kate Denson","Dance With Me":"Kate Denson",
+  "Barbecue and Chili":"The Cannibal","Borrowed Time":"Bill Overbeck","Left Behind":"Bill Overbeck","Unbreakable":"Bill Overbeck","Borrowed Time":"Bill Overbeck",
+  "Decisive Strike":"Laurie Strode","Object Of Obsession":"Laurie Strode","Sole Survivor":"Laurie Strode",
+  "Dead Hard":"David King","We're Gonna Live Forever":"David King","No Mither":"David King",
+  "Detectives Hunch":"Detective Tapp","Stake Out":"Detective Tapp","Tenacity":"Detective Tapp",
+  "Deliverance":"Adam Francis","Autodidact":"Adam Francis","Diversion":"Adam Francis",
+  "Head On":"Jane Romero","Solidarity":"Jane Romero","Poised":"Jane Romero",
+  "Inner Strength":"Nancy Wheeler","Fixated":"Nancy Wheeler","Better Together":"Nancy Wheeler",
+  "Blast Mine":"Jill Valentine","Counterforce":"Jill Valentine","Resurgence":"Jill Valentine",
+  "Flashbang":"Leon S. Kennedy","Bite The Bullet":"Leon S. Kennedy","Rookie Spirit":"Leon S. Kennedy",
+  "Desperate Measures":"Felix Richter","Built To Last":"Felix Richter","Visionary":"Felix Richter",
+  "Appraisal":"Elodie Rakoto","Deception":"Elodie Rakoto","Power Struggle":"Elodie Rakoto",
+  "Soul Guard":"Cheryl Mason","Blood Pact":"Cheryl Mason","Repressed Alliance":"Cheryl Mason",
+  "Buckle Up":"Ash Williams","Flip-Flop":"Ash Williams","Mettle Of Man":"Ash Williams",
+  "Lucky Star":"Ellen Ripley","Chemical Trap":"Ellen Ripley","Light-Footed":"Ellen Ripley",
+  "Mirrored Illusion":"Aestri Yazar","Bardic Inspiration":"Aestri Yazar","Still Sight":"Aestri Yazar",
+  "Eyes Of Belmont":"Trevor Belmont","Exultation":"Trevor Belmont","Moment Of Glory":"Trevor Belmont",
+  "Fast Track":"Yun-Jin Lee","Self-Preservation":"Yun-Jin Lee","Smash Hit":"Yun-Jin Lee",
+  "Background Player":"Renato Lyra","Blood Rush":"Renato Lyra","Teamwork Power Of Two":"Renato Lyra",
+  "Finesse":"Lara Croft","Specialist":"Lara Croft","Hardened":"Lara Croft",
+  "Still Sight":"Aestri Yazar","Wicked":"Sable Ward","Invocation Weaving Spiders":"Sable Ward","Strength In Shadows":"Sable Ward"
+};
+
+[...new Set([killerPerks,goodKillerPerks,badKillerPerks,survivorPerks,goodSurvivorPerks,badSurvivorPerks].flat())].forEach(perk=>{
+  const owner=PERK_OWNERS[perk.englishName];
+  perk.desc=owner ? `Уникальный перк: ${owner}.` : "Общий перк DBD.";
+});
+
 const PERK_CATEGORIES={
   killerGood:goodKillerPerks,
   killerBad:badKillerPerks,
