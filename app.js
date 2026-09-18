@@ -67,8 +67,7 @@ function nextUniqueQuestion(){
     // Questions are never repeated inside the same cycle.
     gameState.questionPool=shuffle(QUESTIONS.map((q,i)=>q.id??i).filter(id=>!gameState.usedQuestionIds.includes(id)));
     if(!gameState.questionPool.length){
-      gameState.usedQuestionIds=[];
-      gameState.questionPool=shuffle(QUESTIONS.map((q,i)=>q.id??i));
+      return null;
     }
   }
   const id=gameState.questionPool.shift();
@@ -167,7 +166,7 @@ function renderMiniLadder(){$("#miniLadder").innerHTML=Array.from({length:15},(_
 function showBuildForAll(){
  const p=currentPlayer();$("#buildEyebrow").textContent=gameState.players.length>1?"ВСЕ БИЛДЫ СОБРАНЫ":"ТВОЙ БИЛД";$("#buildTitle").textContent="4 ПЕРКА ОТКРЫТЫ";$("#buildLevel").textContent=`УР. ${gameState.level}`;
  const cards=gameState.players.flatMap((x,pi)=>x.build.map((k,ki)=>({k,pi,ki})));
- $("#perkGrid").innerHTML=cards.map(({k,pi,ki})=>{const img=k.image?`<img src="${k.image}" alt="" onerror="this.style.display='none'">`:"";return `<div class="perk ${k.type==="bad"?"bad":""}" style="animation-delay:${(pi*4+ki)*.08}s">${img}<div class="perk-icon">${k.icon}</div><strong>${escapeHtml(k.name)}</strong><small>${escapeHtml(k.desc)}</small>${gameState.players.length>1?`<small>${escapeHtml(gameState.players[pi].name)}</small>`:""}</div>`}).join("");
+ $("#perkGrid").innerHTML=`<div class="build-note">Если какого-то из этих перков у тебя нет, просто играй с тем, что есть. Слот можно оставить пустым — заменять отсутствующий перк не нужно.</div>`+cards.map(({k,pi,ki})=>{const img=k.image?`<img src="${k.image}" alt="" onerror="this.style.display='none'">`:"";return `<div class="perk ${k.type==="bad"?"bad":""}" style="animation-delay:${(pi*4+ki)*.08}s">${img}<div class="perk-icon">${k.icon}</div><strong>${escapeHtml(k.name)}</strong><small>${escapeHtml(k.desc)}</small>${gameState.players.length>1?`<small>${escapeHtml(gameState.players[pi].name)}</small>`:""}</div>`}).join("");
  show("build");
 }
 function continueBuild(){if(gameState.players.length>1){gameState.ready=gameState.players.map(()=>false);renderReady();show("ready")}else startMatch()}
@@ -227,21 +226,27 @@ function processMatchResult(selected){
  const detail=gameState.mode==="killer"?`${selected} убийств`:gameState.mode==="solo"?(victory?"СБЕЖАЛ":"ПОГИБ"):`СБЕЖАЛО ${selected}/${gameState.players.length}`;
 
  if(victory){
-   gameState.level=Math.min(CONFIG.maxLevel,gameState.level+CONFIG.victoryGain);
+   const wasExtraAttempt=gameState.firstAttemptFailed && gameState.cursedBuild;
    gameState.firstAttemptFailed=false;gameState.cursedBuild=false;
-   if(gameState.level>=CONFIG.maxLevel){
-     gameState.status="completed";
-     gameState.matchResult="victory";
-     showResult("МАКСИМАЛЬНЫЙ УРОВЕНЬ","ЧЕЛЛЕНДЖ ЗАВЕРШЁН","✦",`Победа: ${detail}. Уровень повышен на +1. Ты достиг максимального уровня ${CONFIG.maxLevel}. Этот челлендж больше нельзя продолжить.`,old,gameState.level);
-   }else{
+   if(wasExtraAttempt){
      gameState.status="active";
      resetPlayersForAttempt();
-     showResult("ПОБЕДА","УРОВЕНЬ ПОВЫШЕН","✦",`Победа: ${detail}. Следующий уровень начинается с нового обычного билда.`,old,gameState.level);
-   }
- }else if(!gameState.firstAttemptFailed){
+     showResult("ПОБЕДА В ДОП. ПОПЫТКЕ","УРОВЕНЬ СОХРАНЁН","✦",`Победа: ${detail}. Дополнительная попытка с плохим билдом пройдена. Ты остаёшься на уровне ${old} и продолжаешь челлендж с обычным билдом.`,old,old);
+   }else{
+     gameState.level=Math.min(CONFIG.maxLevel,gameState.level+CONFIG.victoryGain);
+     if(gameState.level>=CONFIG.maxLevel){
+       gameState.status="completed";
+       gameState.matchResult="victory";
+       showResult("МАКСИМАЛЬНЫЙ УРОВЕНЬ","ЧЕЛЛЕНДЖ ЗАВЕРШЁН","✦",`Победа: ${detail}. Уровень повышен на +1. Ты достиг максимального уровня ${CONFIG.maxLevel}. Этот челлендж больше нельзя продолжить.`,old,gameState.level);
+     }else{
+       gameState.status="active";
+       resetPlayersForAttempt();
+       showResult("ПОБЕДА","УРОВЕНЬ ПОВЫШЕН","✦",`Победа: ${detail}. Следующий уровень начинается с нового обычного билда.`,old,gameState.level);
+     }
+   } }else if(!gameState.firstAttemptFailed){
    gameState.firstAttemptFailed=true;gameState.cursedBuild=true;gameState.status="active";
    buildCursedPerks();
-   showResult("ПОРАЖЕНИЕ","ВТОРОЙ ШАНС АКТИВИРОВАН","☠",`Результат: ${detail}. Уровень ${old} сохраняется. На вторую попытку активирован проклятый билд из плохих перков.`,old,old);
+   showResult("ПОРАЖЕНИЕ","ДОП. ПОПЫТКА — ПЛОХОЙ БИЛД","☠",`Результат: ${detail}. Это дополнительная попытка на уровне ${old}. Если победишь — останешься на этом же уровне; если проиграешь — опустишься на 1 уровень.`,old,old);
  }else{
    const nextLevel=Math.max(0,old-1);
    gameState.firstAttemptFailed=false;gameState.cursedBuild=false;gameState.level=nextLevel;
