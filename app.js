@@ -1,7 +1,13 @@
 const KEY="dbdChallengeStateRUv2";
 const CONFIG={maxLevel:15,perksPerBuild:4,victoryGain:1,killerVictoryMinKills:3};
+const PERK_IMAGE_ALIASES={
+ "assets/perks/iconPerks_guardian.png":"assets/perks/iconPerks_babySitter.png",
+ "assets/perks/iconPerks_situationalAwareness.png":"assets/perks/iconPerks_betterTogether.png",
+ "assets/perks/IconPerks_SelfAware.png":"assets/perks/iconPerks_Fixated.png",
+ "assets/perks/iconPerks_pushThroughIt.png":"assets/perks/iconPerks_secondWind.png"
+};
 let gameState={
- challengeId:null,status:"idle",mode:null,players:[],currentPlayer:0,currentPerk:0,currentQuestion:0,
+ challengeId:null,status:"idle",stage:null,resultView:null,mode:null,players:[],currentPlayer:0,currentPerk:0,currentQuestion:0,
  level:1,maxLevel:15,builds:{},firstAttemptFailed:false,cursedBuild:false,matchResult:null,
  history:[],ready:[],lastSavedAt:null,questionPool:[],usedQuestionIds:[]
 };
@@ -9,7 +15,8 @@ let gameState={
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function challengeSnapshot(){
   return {
-    challengeId:gameState.challengeId,status:gameState.status,mode:gameState.mode,
+    challengeId:gameState.challengeId,status:gameState.status,stage:gameState.stage,
+    resultView:gameState.resultView,mode:gameState.mode,
     players:gameState.players,level:gameState.level,maxLevel:gameState.maxLevel,
     builds:gameState.builds,firstAttemptFailed:gameState.firstAttemptFailed,
     cursedBuild:gameState.cursedBuild,matchResult:gameState.matchResult,
@@ -37,7 +44,17 @@ function saveGame(){
   upsertHistorySnapshot();
   localStorage.setItem(KEY,JSON.stringify(gameState));
 }
-function loadGame(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x)gameState={...gameState,...x}}catch{}}
+function normalizeSavedPerk(perk){
+ if(!perk)return perk;
+ perk.image=PERK_IMAGE_ALIASES[perk.image]||perk.image;
+ const canonical=[...killerPerks,...survivorPerks].find(item=>item.image===perk.image);
+ return canonical?{...perk,name:canonical.name,englishName:canonical.englishName,desc:canonical.desc}:perk;
+}
+function normalizeSavedBuilds(state){
+ (state.players||[]).forEach(player=>player.build=(player.build||[]).map(normalizeSavedPerk));
+ if(state.builds)Object.keys(state.builds).forEach(key=>state.builds[key]=(state.builds[key]||[]).map(normalizeSavedPerk));
+}
+function loadGame(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x)gameState={...gameState,...x}}catch{}normalizeSavedBuilds(gameState)}
 function resetGame(){if(confirm("Сбросить весь сохранённый прогресс и историю матчей?")){localStorage.removeItem(KEY);location.reload()}}
 function exitToMenu(save=true){
   if(save && gameState.status==="active")saveGame();
@@ -45,15 +62,34 @@ function exitToMenu(save=true){
 }
 function show(id){$$(".screen").forEach(s=>s.classList.remove("active"));const el=$("#"+id);el.classList.add("active");window.scrollTo(0,0)}
 function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1800)}
-function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function shuffle(a){
+ const result=[...a];
+ for(let i=result.length-1;i>0;i--){
+   const j=Math.floor(Math.random()*(i+1));
+   [result[i],result[j]]=[result[j],result[i]];
+ }
+ return result;
+}
 function pick(pool){return shuffle(pool)[0]}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function perkInfo(perk){return PERK_DETAILS[PERK_IMAGE_ALIASES[perk.image]||perk.image]||null}
+function perkOwnerLabel(perk){
+ const info=perkInfo(perk);
+ return info ? (info.owner==="Общий" ? `Общий для ${info.role==="killer"?"убийц":"выживших"}` : `Персонаж: ${info.owner}`) : "Происхождение не подтверждено";
+}
+function openPerkDetails(image){
+ const info=PERK_DETAILS[image];if(!info)return;
+ const card=[...killerPerks,...survivorPerks].find(p=>p.image===image);
+ const title=card?.name||info.englishName;
+ $("#perkDialogContent").innerHTML=`<img src="${escapeHtml(image)}" alt=""><p class="eyebrow">${escapeHtml(info.role==="killer"?"ПЕРК УБИЙЦЫ":"ПЕРК ВЫЖИВШЕГО")}</p><h2 id="perkDialogTitle">${escapeHtml(title)}</h2><p class="perk-dialog-english">${escapeHtml(info.englishName)}</p><p class="perk-dialog-owner">${escapeHtml(perkOwnerLabel({image}))}</p>${info.upcomingPatch?'<p class="perk-dialog-warning">Для этого перка заявлены изменения в будущем обновлении. Эффект в текущей версии игры может отличаться.</p>':''}<h3>ЭФФЕКТ НА III УРОВНЕ</h3><p class="perk-dialog-effect">${escapeHtml(info.shortDescriptionRu||info.descriptionRu||info.descriptionEn)}</p>`;
+ $("#perkDialog").showModal();
+}
 function rolePools(){
   return gameState.mode==="killer"
     ? {good:PERK_CATEGORIES.killerGood,bad:PERK_CATEGORIES.killerBad}
     : {good:PERK_CATEGORIES.survivorGood,bad:PERK_CATEGORIES.survivorBad};
 }
-function freshPlayer(name){return{name,progress:0,build:[],correctForPerk:0,wrongForPerk:0,activeQuestionId:null}}
+function freshPlayer(name){return{name,progress:0,build:[],correctForPerk:0,wrongForPerk:0,activeQuestionId:null,answerOrder:null}}
 function initQuestionPool(){
   gameState.questionPool=shuffle(QUESTIONS.map((q,i)=>q.id??i));
   gameState.usedQuestionIds=[];
@@ -63,12 +99,10 @@ function nextUniqueQuestion(){
   if(!Array.isArray(gameState.questionPool))gameState.questionPool=[];
   if(!Array.isArray(gameState.usedQuestionIds))gameState.usedQuestionIds=[];
   if(!gameState.questionPool.length){
-    // One complete randomized pass finished. Start a new randomized cycle.
-    // Questions are never repeated inside the same cycle.
-    gameState.questionPool=shuffle(QUESTIONS.map((q,i)=>q.id??i).filter(id=>!gameState.usedQuestionIds.includes(id)));
-    if(!gameState.questionPool.length){
-      return null;
-    }
+    // A new cycle begins only after every question was shown once.
+    gameState.questionPool=shuffle(QUESTIONS.map((q,i)=>q.id??i));
+    gameState.usedQuestionIds=[];
+    if(!gameState.questionPool.length)return null;
   }
   const id=gameState.questionPool.shift();
   gameState.usedQuestionIds.push(id);
@@ -83,7 +117,7 @@ function renderSetup(){
   title="СКОЛЬКО ИГРОКОВ?"; body=`<div class="choice-grid">${[2,3,4].map(n=>`<button class="choice ${gameState.partyCount===n?"selected":""}" data-count="${n}">${n} ИГРОКА</button>`).join("")}</div><div id="partyFields"></div>`;
  }else{
   title=gameState.mode==="killer"?"ВВЕДИ СВОЙ НИК":"ВВЕДИ НИК ВЫЖИВШЕГО";
-  body=`<input id="singleName" class="setup-input" maxlength="24" placeholder="Твой ник"><button class="btn primary" id="setupContinue">ПРОДОЛЖИТЬ</button>`;
+  body=`<input id="singleName" class="setup-input" maxlength="24" placeholder="Твой ник"><button class="btn primary setup-start" id="setupContinue">НАЧАТЬ ЧЕЛЛЕНДЖ</button>`;
  }
  c.innerHTML=`<p class="eyebrow">02 // ИДЕНТИФИКАЦИЯ</p><h2>${title}</h2>${body}`;
  $$("[data-count]").forEach(b=>b.onclick=()=>{gameState.partyCount=+b.dataset.count;renderSetup();renderPartyFields()});
@@ -92,12 +126,12 @@ function renderSetup(){
 }
 function renderPartyFields(){
  if(gameState.mode!=="party")return;const c=$("#partyFields");if(!gameState.partyCount){c.innerHTML="";return}
- c.innerHTML=`<div class="player-fields">${Array.from({length:gameState.partyCount},(_,i)=>`<input class="setup-input p-name" maxlength="24" placeholder="ИГРОК ${i+1}">`).join("")}</div><button class="btn primary" id="partyContinue">ПРОДОЛЖИТЬ</button>`;
+ c.innerHTML=`<div class="player-fields">${Array.from({length:gameState.partyCount},(_,i)=>`<input class="setup-input p-name" maxlength="24" placeholder="ИГРОК ${i+1}">`).join("")}</div><button class="btn primary setup-start" id="partyContinue">НАЧАТЬ ЧЕЛЛЕНДЖ</button>`;
  $("#partyContinue").onclick=()=>{const ns=$$(".p-name").map(x=>x.value.trim());if(ns.some(n=>!n))return toast("ВВЕДИ ВСЕ НИКИ");gameState.players=ns.map(freshPlayer);begin()};
 }
 function begin(){
  gameState.challengeId="CH-"+Date.now()+"-"+Math.random().toString(36).slice(2,7).toUpperCase();
- gameState.status="active";
+ gameState.status="active";gameState.stage="quiz";gameState.resultView=null;
  gameState.currentPlayer=0;gameState.currentPerk=0;gameState.currentQuestion=0;gameState.builds={};gameState.ready=[];
  gameState.firstAttemptFailed=false;gameState.cursedBuild=false;gameState.matchResult=null;
  initQuestionPool();
@@ -111,8 +145,13 @@ function loadQuestion(){
    q=nextUniqueQuestion();
    if(!q){toast("НЕТ ДОСТУПНЫХ ВОПРОСОВ");return;}
    p.activeQuestionId=q.id??QUESTIONS.indexOf(q);
+   gameState.currentQuestion=(gameState.currentQuestion||0)+1;
  }
- gameState.currentQuestion=(gameState.currentQuestion||0)+1;
+ if(!Array.isArray(p.answerOrder)||p.answerOrder.length!==q.answers.length){
+   p.answerOrder=shuffle(q.answers.map((_,i)=>i));
+ }
+ gameState.stage="quiz";
+ saveGame();
  $("#quizRole").textContent=gameState.mode==="killer"?"// УБИЙЦА":"// ВЫЖИВШИЙ";
  $("#levelHud").textContent=`УР. ${gameState.level}`;
  $("#playerHud").textContent=gameState.players.length>1?`${escapeHtml(p.name)} // ИГРОК ${gameState.currentPlayer+1}`:"";
@@ -121,35 +160,42 @@ function loadQuestion(){
  $("#qProgress").style.width=Math.min(100,(p.correctForPerk+p.wrongForPerk)/4*100)+"%";
  $("#category").textContent=`${q.category} // ${q.difficulty}`;
  $("#question").textContent=q.text;$("#feedback").textContent="";$("#feedback").className="feedback";
- $("#answers").innerHTML=q.answers.map((a,i)=>`<button class="answer" data-answer="${i}"><b>${String.fromCharCode(65+i)}</b>&nbsp; ${escapeHtml(a)}</button>`).join("");
+ const visual=$("#questionVisual");
+ visual.hidden=!q.image;
+ visual.innerHTML=q.image?`<figure><img src="${escapeHtml(q.image)}" alt="${escapeHtml(q.imageAlt||"Изображение для вопроса")}"><figcaption>Изображение из Dead by Daylight</figcaption></figure>`:"";
+ $("#answers").innerHTML=p.answerOrder.map((answerIndex,i)=>`<button class="answer" data-answer="${answerIndex}"><b>${String.fromCharCode(65+i)}</b>&nbsp; ${escapeHtml(q.answers[answerIndex])}</button>`).join("");
  $$(".answer").forEach(b=>b.onclick=()=>answerQuestion(+b.dataset.answer));renderPlayerProgress();renderMiniLadder();
 }
 function answerQuestion(index){
  const p=currentPlayer(),q=getQuestionById(p.activeQuestionId),correct=index===q.correct;
- $$(".answer").forEach((b,i)=>{b.disabled=true;if(i===q.correct)b.classList.add("correct");if(i===index&&!correct)b.classList.add("wrong")});
- if(correct){p.correctForPerk++;$("#feedback").textContent="✓ ПРАВИЛЬНО — ЕЩЁ ОДИН ПРАВИЛЬНЫЙ ОТВЕТ НУЖЕН ДЛЯ ПЕРКА";$("#feedback").className="feedback good"}
- else{p.wrongForPerk++;$("#feedback").textContent="✕ НЕПРАВИЛЬНО — ЕЩЁ ОДНА ОШИБКА НУЖНА ДЛЯ ПЛОХОГО ПЕРКА";$("#feedback").className="feedback bad"}
- p.progress++;p.activeQuestionId=null;
+ $$(".answer").forEach(b=>{const answerIndex=+b.dataset.answer;b.disabled=true;if(answerIndex===q.correct)b.classList.add("correct");if(answerIndex===index&&!correct)b.classList.add("wrong")});
+ if(correct){p.correctForPerk++;$("#feedback").textContent=p.correctForPerk>=2?"✓ ПРАВИЛЬНО — ХОРОШИЙ ПЕРК ОТКРЫТ":"✓ ПРАВИЛЬНО — ЕЩЁ ОДИН ПРАВИЛЬНЫЙ ОТВЕТ НУЖЕН ДЛЯ ПЕРКА";$("#feedback").className="feedback good"}
+ else{p.wrongForPerk++;$("#feedback").textContent=p.wrongForPerk>=2?"✕ НЕПРАВИЛЬНО — ПЛОХОЙ ПЕРК ОТКРЫТ":"✕ НЕПРАВИЛЬНО — ЕЩЁ ОДНА ОШИБКА НУЖНА ДЛЯ ПЛОХОГО ПЕРКА";$("#feedback").className="feedback bad"}
+ p.progress++;p.activeQuestionId=null;p.answerOrder=null;
+ gameState.stage="answerFeedback";
  saveGame();
- setTimeout(()=>{
-   if(p.correctForPerk>=2){unlockPerk("good")}
-   else if(p.wrongForPerk>=2){unlockPerk("bad")}
-   else loadQuestion();
- },650);
+ setTimeout(advanceAfterAnswer,650);
+}
+function advanceAfterAnswer(){
+ if(gameState.stage!=="answerFeedback")return;
+ const p=currentPlayer();
+ if(p.correctForPerk>=2)unlockPerk("good");
+ else if(p.wrongForPerk>=2)unlockPerk("bad");
+ else loadQuestion();
 }
 function unlockPerk(type){
  const p=currentPlayer(),pools=rolePools(),pool=type==="good"?pools.good:pools.bad;
  const used=p.build.map(x=>x.name);let available=pool.filter(x=>!used.includes(x.name));if(!available.length)available=pool;
  const perk={...pick(available),type};
  p.build.push(perk);p.correctForPerk=0;p.wrongForPerk=0;
- gameState.builds[p.name]=p.build;saveGame();showPerkReveal(perk);
+ gameState.builds[p.name]=p.build;gameState.stage="perkReveal";saveGame();showPerkReveal(perk);
 }
 function showPerkReveal(perk){
  $("#revealLevel").textContent=`УР. ${gameState.level}`;
  $("#revealEyebrow").textContent=perk.type==="good"?"2 ПРАВИЛЬНЫХ ОТВЕТА":"2 НЕПРАВИЛЬНЫХ ОТВЕТА";
  $("#revealTitle").textContent=perk.type==="good"?"ХОРОШИЙ ПЕРК +":"ПЛОХОЙ ПЕРК +";
  const img=perk.image?`<img src="${perk.image}" alt="" onerror="this.style.display='none'">`:"";
- $("#revealedPerk").innerHTML=`${img}<div class="perk-icon">${perk.icon}</div><strong>${escapeHtml(perk.name)}</strong><small>${escapeHtml(perk.desc)}</small>`;
+ $("#revealedPerk").innerHTML=`<button class="perk-detail-trigger" type="button" data-perk-image="${escapeHtml(perk.image)}" aria-label="Подробнее о перке ${escapeHtml(perk.name)}">${img}<div class="perk-icon">${perk.icon||""}</div><strong>${escapeHtml(perk.name)}</strong><small>${escapeHtml(perkOwnerLabel(perk))}</small><span>Нажми, чтобы прочитать эффект →</span></button>`;
  show("perkReveal");
 }
 function continuePerk(){
@@ -164,15 +210,17 @@ function renderPlayerProgress(){
 }
 function renderMiniLadder(){$("#miniLadder").innerHTML=Array.from({length:15},(_,i)=>`<b class="${i+1===gameState.level?"current":""}">УРОВЕНЬ ${i+1}</b>`).join("")}
 function showBuildForAll(){
+   gameState.stage="build";saveGame();
  const p=currentPlayer();$("#buildEyebrow").textContent=gameState.players.length>1?"ВСЕ БИЛДЫ СОБРАНЫ":"ТВОЙ БИЛД";$("#buildTitle").textContent="4 ПЕРКА ОТКРЫТЫ";$("#buildLevel").textContent=`УР. ${gameState.level}`;
  const cards=gameState.players.flatMap((x,pi)=>x.build.map((k,ki)=>({k,pi,ki})));
- $("#perkGrid").innerHTML=`<div class="build-note">Если какого-то из этих перков у тебя нет, просто играй с тем, что есть. Слот можно оставить пустым — заменять отсутствующий перк не нужно.</div>`+cards.map(({k,pi,ki})=>{const img=k.image?`<img src="${k.image}" alt="" onerror="this.style.display='none'">`:"";return `<div class="perk ${k.type==="bad"?"bad":""}" style="animation-delay:${(pi*4+ki)*.08}s">${img}<div class="perk-icon">${k.icon}</div><strong>${escapeHtml(k.name)}</strong><small>${escapeHtml(k.desc)}</small>${gameState.players.length>1?`<small>${escapeHtml(gameState.players[pi].name)}</small>`:""}</div>`}).join("");
+ $("#perkGrid").innerHTML=`<div class="build-note">Если какого-то из этих перков у тебя нет, просто играй с тем, что есть. Слот можно оставить пустым — заменять отсутствующий перк не нужно.</div>`+cards.map(({k,pi,ki})=>{const img=k.image?`<img src="${escapeHtml(k.image)}" alt="" onerror="this.style.display='none'">`:"";return `<button class="perk ${k.type==="bad"?"bad":""}" type="button" data-perk-image="${escapeHtml(k.image)}" style="animation-delay:${(pi*4+ki)*.08}s">${img}<div class="perk-icon">${k.icon||""}</div><strong>${escapeHtml(k.name)}</strong><small>${escapeHtml(perkOwnerLabel(k))}</small>${gameState.players.length>1?`<small>${escapeHtml(gameState.players[pi].name)}</small>`:""}<small>Подробнее →</small></button>`}).join("");
  show("build");
 }
-function continueBuild(){if(gameState.players.length>1){gameState.ready=gameState.players.map(()=>false);renderReady();show("ready")}else startMatch()}
+function continueBuild(){if(gameState.players.length>1){gameState.ready=gameState.players.map(()=>false);gameState.stage="ready";saveGame();renderReady();show("ready")}else startMatch()}
 function renderReady(){$("#readyList").innerHTML=gameState.players.map((p,i)=>`<div class="ready-row ${gameState.ready[i]?"ready":""}"><span>${escapeHtml(p.name)}</span><b>${gameState.ready[i]?"✓ ГОТО":"ОЖИДАНИЕ"}</b></div>`).join("");$("#readyBtn").textContent=gameState.ready.every(Boolean)?"НАЧАТЬ МАТЧ":"ГОТО"}
-$("#readyBtn").onclick=()=>{if(gameState.ready.every(Boolean))startMatch();else{const i=gameState.ready.findIndex(x=>!x);gameState.ready[i]=true;renderReady()}};
+$("#readyBtn").onclick=()=>{if(gameState.ready.every(Boolean))startMatch();else{const i=gameState.ready.findIndex(x=>!x);gameState.ready[i]=true;saveGame();renderReady()}};
 function startMatch(){
+ gameState.stage="match";saveGame();
  show("match");let html="";
  if(gameState.mode==="killer")html=`<p class="eyebrow">СКОЛЬКО ВЫЖИВШИХ УБИТО?</p><div class="kill-grid">${[0,1,2,3,4].map(k=>`<button class="kill" data-kills="${k}">${k}</button>`).join("")}</div>`;
  else if(gameState.mode==="solo")html=`<p class="eyebrow">ТЫ СБЕЖАЛ ИЛИ ПОГИБ?</p><div class="choice-grid"><button class="choice" data-escaped="yes">ДА, СБЕЖАЛ</button><button class="choice" data-escaped="no">НЕТ, ПОГИБ</button></div>`;
@@ -262,6 +310,7 @@ function processMatchResult(selected){
  saveGame();
 }
 function showResult(title,text,icon,desc,from,to){
+ gameState.stage="result";gameState.resultView={title,text,icon,desc,from,to};
  $("#resultIcon").textContent=icon;
  $("#resultEyebrow").textContent=gameState.cursedBuild?"ПРОКЛЯТЫЙ ПРОТОКОЛ":"РЕЗУЛЬТАТ МАТЧА";
  $("#resultTitle").textContent=title;$("#resultText").textContent=text+" — "+desc;
@@ -278,17 +327,27 @@ function newChallenge(){
  initQuestionPool();
  gameState.firstAttemptFailed=false;gameState.cursedBuild=false;gameState.ready=[];
  gameState.challengeId="CH-"+Date.now()+"-"+Math.random().toString(36).slice(2,7).toUpperCase();
- gameState.status="active";gameState.level=1;saveGame();show("quiz");loadQuestion();
+ gameState.status="active";gameState.stage="quiz";gameState.resultView=null;gameState.level=1;saveGame();show("quiz");loadQuestion();
 }
 function resumeChallenge(id){
  const h=gameState.history.find(x=>x.challengeId===id);
  if(!h||!h.snapshot)return toast("ЧЕЛЛЕНДЖ НЕ НАЙДЕН");
  gameState={...gameState,...h.snapshot,history:gameState.history};
+ normalizeSavedBuilds(gameState);
  if(gameState.status!=="active")return toast("ЭТОТ ЧЕЛЛЕНДЖ УЖЕ ЗАВЕРШЁН");
  if(!Array.isArray(gameState.questionPool))gameState.questionPool=[];
  if(!Array.isArray(gameState.usedQuestionIds))gameState.usedQuestionIds=[];
- show("quiz");
- loadQuestion();
+ if(gameState.stage==="answerFeedback"){advanceAfterAnswer();return}
+ if(gameState.stage==="perkReveal"){
+   const p=currentPlayer();showPerkReveal(p.build[p.build.length-1]);return;
+ }
+ if(gameState.stage==="build"){showBuildForAll();return}
+ if(gameState.stage==="ready"){renderReady();show("ready");return}
+ if(gameState.stage==="match"){startMatch();return}
+ if(gameState.stage==="result" && gameState.resultView){
+   const v=gameState.resultView;showResult(v.title,v.text,v.icon,v.desc,v.from,v.to);return;
+ }
+ show("quiz");loadQuestion();
 }
 function showHistory(){
  const list=$("#historyList");
@@ -309,11 +368,15 @@ function showHistory(){
  show("history");
 }
 document.addEventListener("click",e=>{
+ if(e.target.closest(".perk-dialog-close")){$("#perkDialog").close();return}
+ const perkButton=e.target.closest("[data-perk-image]");if(perkButton){openPerkDetails(perkButton.dataset.perkImage);return}
  const resume=e.target.closest("[data-resume]");
  if(resume){resumeChallenge(resume.dataset.resume);return}
  const a=e.target.closest("[data-action]");if(!a)return;
  const act=a.dataset.action;
  if(act==="start")show("mode");
+ if(act==="about")show("about");
+ if(act==="splash")show("splash");
  if(act==="mode")show("mode");
  if(act==="history")showHistory();
  if(act==="continueBuild")continueBuild();
