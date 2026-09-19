@@ -1100,3 +1100,72 @@ header {
 }
 
 .build-note{grid-column:1/-1;margin:0 0 8px;padding:14px 16px;border:1px solid #57e8ff33;background:#57e8ff08;border-radius:14px;color:var(--muted);line-height:1.5;font-size:14px}
+
+/* Visual questions added after the original release. */
+.question-visual[hidden]{display:none}
+.question-visual figure{margin:22px 0 26px}
+.question-visual img{display:block;width:100%;aspect-ratio:3/2;max-height:310px;object-fit:cover;border-radius:16px;border:1px solid #ffffff22}
+.question-visual figcaption{margin-top:8px;color:var(--muted);font-size:12px;text-align:right}
+
+/* UI behavior fixes that do not change the original visual direction. */
+html,body{overflow-x:hidden}
+button,input{font:inherit}
+button{min-height:44px;touch-action:manipulation}
+button:focus-visible,input:focus-visible,.perk:focus-visible,.perk-detail-trigger:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.btn{min-height:48px;line-height:1.25}
+.primary,.btn.primary{border:0;background-clip:border-box;background-origin:border-box}
+.text-btn{min-height:44px;padding:10px 14px;border-radius:10px}
+.icon-btn,.back{min-width:44px;min-height:44px}
+.setup-input{min-height:52px;font-size:16px}
+.answer{min-height:60px;line-height:1.45}
+.answer:disabled{opacity:1}
+.choice,.kill{min-height:52px}
+.match-extra .choice-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:620px;margin-inline:auto}
+.match-extra .kill-grid{max-width:620px;margin-inline:auto}
+.reveal-wrap>.btn{display:block;min-width:190px;margin-inline:auto}
+#readyList{display:grid;gap:12px;margin:30px 0}
+
+.about-btn{margin-top:14px}
+.about-wrap{max-width:980px;margin-top:4vh}
+.about-wrap>h2{max-width:760px}
+.about-intro{max-width:780px;font-size:17px;line-height:1.65}
+.about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:34px 0}
+.about-grid article{padding:22px;border:1px solid var(--line);border-radius:16px;background:#ffffff05}
+.about-grid article>b{color:var(--cyan);font:800 12px Orbitron,sans-serif;letter-spacing:.12em}
+.about-grid h3,.rules-block h3{margin:10px 0 8px;font:800 16px Orbitron,sans-serif}
+.about-grid p,.rules-block p,.rules-block li,.about-save{color:var(--muted);line-height:1.6}
+.rules-block{margin-top:18px;padding:22px;border-left:3px solid var(--violet);background:#9b5cff0a;border-radius:0 14px 14px 0}
+.rules-block ul{margin:10px 0 0;padding-left:22px}
+.rules-block li+li{margin-top:7px}
+.about-save{margin:24px 0}
+
+/* Perk interaction and details dialog. */
+.perk,.perk-detail-trigger{color:inherit;cursor:pointer;font-family:inherit;text-align:center}
+.perk-detail-trigger{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;padding:12px;background:transparent;border:1px solid transparent;border-radius:18px}
+.perk:hover,.perk:focus-visible,.perk-detail-trigger:hover,.perk-detail-trigger:focus-visible{border-color:#c9a6ff;box-shadow:0 0 25px #9b5cff55}
+.perk-detail-trigger span{color:#c9a6ff;font-size:13px;line-height:1.4}
+.perk-dialog{width:min(620px,calc(100vw - 28px));max-height:min(82vh,800px);overflow:auto;padding:32px;color:#fff;background:#11101c;border:1px solid #9b5cff;border-radius:22px;box-shadow:0 25px 90px #000b;line-height:1.6}
+.perk-dialog::backdrop{background:#000b}
+.perk-dialog-close{position:sticky;top:0;float:right;border:0;background:#30274a;color:#fff;border-radius:50%;min-width:44px;min-height:44px;display:grid;place-items:center;font-size:26px;cursor:pointer}
+.perk-dialog img{width:92px;height:92px;object-fit:contain}
+.perk-dialog h2{margin:8px 0;font-size:24px}
+.perk-dialog h3{margin:25px 0 10px;color:#c9a6ff;font-size:15px}
+.perk-dialog p{line-height:1.6}
+.perk-dialog-english,.perk-dialog-note{color:var(--muted);font-size:13px}
+.perk-dialog-owner{font-weight:700}
+.perk-dialog-effect{white-space:pre-line}
+.perk-dialog-warning{padding:12px;border:1px solid #ffb347;background:#55361455;border-radius:10px}
+.perk-dialog a{color:#c9a6ff}
+
+@media(max-width:560px){
+    .answers{grid-template-columns:1fr}
+    .match-extra .choice-grid{grid-template-columns:1fr}
+    .perk-dialog{padding:24px 20px}
+    .about-grid{grid-template-columns:1fr}
+    .about-wrap{padding:28px 20px}
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    .blob,.particle{display:none}
+}
