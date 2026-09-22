@@ -950,6 +950,8 @@ header {
 .history-actions .btn {
     color:#fff
 }
+.history-actions .btn.danger{border-color:#ff5d7866;color:#ff9bad;background:#2a1018}
+.history-actions .btn.danger:hover{border-color:#ff5d78;background:#431521}
 
 .choice {
     color:#fff
@@ -1105,6 +1107,7 @@ header {
 .question-visual[hidden]{display:none}
 .question-visual figure{margin:22px 0 26px}
 .question-visual img{display:block;width:100%;aspect-ratio:3/2;max-height:310px;object-fit:cover;border-radius:16px;border:1px solid #ffffff22}
+.question-visual img.contain{object-fit:contain;background:#090912}
 .question-visual figcaption{margin-top:8px;color:var(--muted);font-size:12px;text-align:right}
 
 /* UI behavior fixes that do not change the original visual direction. */
@@ -1169,3 +1172,4 @@ button:focus-visible,input:focus-visible,.perk:focus-visible,.perk-detail-trigge
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
     .blob,.particle{display:none}
 }
+.perk-dialog-pickrate{margin:.65rem 0;color:#d7c9f5;font-size:.92rem}
