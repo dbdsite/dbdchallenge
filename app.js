@@ -1,5 +1,5 @@
 const KEY="dbdChallengeStateRUv2";
-const CONFIG={maxLevel:15,perksPerBuild:4,victoryGain:1,killerVictoryMinKills:3};
+const CONFIG={maxLevel:15,perksPerBuild:4,victoryGain:1,killerVictoryMinKills:3,answerRevealMs:2500};
 const PERK_IMAGE_ALIASES={
  "assets/perks/iconPerks_guardian.png":"assets/perks/iconPerks_babySitter.png",
  "assets/perks/iconPerks_situationalAwareness.png":"assets/perks/iconPerks_betterTogether.png",
@@ -9,7 +9,7 @@ const PERK_IMAGE_ALIASES={
 let gameState={
  challengeId:null,status:"idle",stage:null,resultView:null,mode:null,players:[],currentPlayer:0,currentPerk:0,currentQuestion:0,
  level:1,maxLevel:15,builds:{},firstAttemptFailed:false,cursedBuild:false,matchResult:null,
- history:[],ready:[],lastSavedAt:null,questionPool:[],usedQuestionIds:[]
+ history:[],ready:[],lastSavedAt:null,questionPool:[],usedQuestionIds:[],usedPerkNames:[],lastQuestionType:null
 };
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -22,7 +22,8 @@ function challengeSnapshot(){
     cursedBuild:gameState.cursedBuild,matchResult:gameState.matchResult,
     ready:gameState.ready,currentPlayer:gameState.currentPlayer,currentPerk:gameState.currentPerk,
     currentQuestion:gameState.currentQuestion,lastSavedAt:gameState.lastSavedAt,
-    questionPool:gameState.questionPool,usedQuestionIds:gameState.usedQuestionIds
+    questionPool:gameState.questionPool,usedQuestionIds:gameState.usedQuestionIds,
+    usedPerkNames:gameState.usedPerkNames,lastQuestionType:gameState.lastQuestionType
   };
 }
 function upsertHistorySnapshot(){
@@ -81,7 +82,12 @@ function openPerkDetails(image){
  const info=PERK_DETAILS[image];if(!info)return;
  const card=[...killerPerks,...survivorPerks].find(p=>p.image===image);
  const title=card?.name||info.englishName;
- $("#perkDialogContent").innerHTML=`<img src="${escapeHtml(image)}" alt=""><p class="eyebrow">${escapeHtml(info.role==="killer"?"ПЕРК УБИЙЦЫ":"ПЕРК ВЫЖИВШЕГО")}</p><h2 id="perkDialogTitle">${escapeHtml(title)}</h2><p class="perk-dialog-english">${escapeHtml(info.englishName)}</p><p class="perk-dialog-owner">${escapeHtml(perkOwnerLabel({image}))}</p>${info.upcomingPatch?'<p class="perk-dialog-warning">Для этого перка заявлены изменения в будущем обновлении. Эффект в текущей версии игры может отличаться.</p>':''}<h3>ЭФФЕКТ НА III УРОВНЕ</h3><p class="perk-dialog-effect">${escapeHtml(info.shortDescriptionRu||info.descriptionRu||info.descriptionEn)}</p>`;
+ const roleMeta=window.PERK_PICK_RATE_META?.[info.role];
+ const rate=card?.pickRate;
+ const rateLabel=Number.isFinite(rate)&&roleMeta
+  ? `<p class="perk-dialog-pickrate">Пикрейт: <strong>${rate.toFixed(2)}%</strong> · медиана роли: ${roleMeta.median.toFixed(2)}%</p>`
+  : "";
+ $("#perkDialogContent").innerHTML=`<img src="${escapeHtml(image)}" alt=""><p class="eyebrow">${escapeHtml(info.role==="killer"?"ПЕРК УБИЙЦЫ":"ПЕРК ВЫЖИВШЕГО")}</p><h2 id="perkDialogTitle">${escapeHtml(title)}</h2><p class="perk-dialog-english">${escapeHtml(info.englishName)}</p><p class="perk-dialog-owner">${escapeHtml(perkOwnerLabel({image}))}</p>${rateLabel}${info.upcomingPatch?'<p class="perk-dialog-warning">Для этого перка заявлены изменения в будущем обновлении. Эффект в текущей версии игры может отличаться.</p>':''}<h3>ЭФФЕКТ НА III УРОВНЕ</h3><p class="perk-dialog-effect">${escapeHtml(info.shortDescriptionRu||info.descriptionRu||info.descriptionEn)}</p>`;
  $("#perkDialog").showModal();
 }
 function rolePools(){
@@ -89,12 +95,39 @@ function rolePools(){
     ? {good:PERK_CATEGORIES.killerGood,bad:PERK_CATEGORIES.killerBad}
     : {good:PERK_CATEGORIES.survivorGood,bad:PERK_CATEGORIES.survivorBad};
 }
+function takeUnusedPerk(pool,usedInBuild=[]){
+ if(!Array.isArray(gameState.usedPerkNames))gameState.usedPerkNames=[];
+ let available=pool.filter(x=>!usedInBuild.includes(x.image)&&!gameState.usedPerkNames.includes(x.image));
+ // Reuse begins only after every perk in this quality pool has appeared in the challenge.
+ if(!available.length){
+   const poolKeys=new Set(pool.map(x=>x.image));
+   gameState.usedPerkNames=gameState.usedPerkNames.filter(key=>!poolKeys.has(key));
+   available=pool.filter(x=>!usedInBuild.includes(x.image));
+ }
+ const perk=pick(available.length?available:pool);
+ if(perk)gameState.usedPerkNames.push(perk.image);
+ return perk;
+}
 function freshPlayer(name){return{name,progress:0,build:[],correctForPerk:0,wrongForPerk:0,activeQuestionId:null,answerOrder:null}}
 function initQuestionPool(){
   gameState.questionPool=shuffle(QUESTIONS.map((q,i)=>q.id??i));
   gameState.usedQuestionIds=[];
 }
 function getQuestionById(id){return QUESTIONS.find((q,i)=>(q.id??i)===id)}
+function difficultyWeightsForLevel(level){
+  if(level<=5)return {"ЛЕГКО":65,"СРЕДНЕ":25,"СЛОЖНО":10};
+  if(level<=10)return {"ЛЕГКО":20,"СРЕДНЕ":60,"СЛОЖНО":20};
+  return {"ЛЕГКО":10,"СРЕДНЕ":25,"СЛОЖНО":65};
+}
+function weightedDifficulty(availableQuestions){
+  const weights=difficultyWeightsForLevel(gameState.level||1);
+  const available=[...new Set(availableQuestions.map(q=>q.difficulty))].filter(d=>weights[d]>0);
+  if(!available.length)return null;
+  const total=available.reduce((sum,d)=>sum+weights[d],0);
+  let roll=Math.random()*total;
+  for(const difficulty of available){roll-=weights[difficulty];if(roll<0)return difficulty}
+  return available[available.length-1];
+}
 function nextUniqueQuestion(){
   if(!Array.isArray(gameState.questionPool))gameState.questionPool=[];
   if(!Array.isArray(gameState.usedQuestionIds))gameState.usedQuestionIds=[];
@@ -104,8 +137,24 @@ function nextUniqueQuestion(){
     gameState.usedQuestionIds=[];
     if(!gameState.questionPool.length)return null;
   }
-  const id=gameState.questionPool.shift();
+  const available=gameState.questionPool.map(getQuestionById).filter(Boolean);
+  const difficulty=weightedDifficulty(available);
+  let candidates=available.filter(q=>q.difficulty===difficulty);
+  if(!candidates.length)candidates=available;
+  // Portrait identification remains in the bank, but does not dominate easy levels.
+  // Never show two character portraits in a row when another question is available.
+  const reducedVisualTypes=new Set(["character-image","perk-image"]);
+  if(reducedVisualTypes.has(gameState.lastQuestionType)){
+    const withoutReducedVisuals=candidates.filter(q=>!reducedVisualTypes.has(q.questionType));
+    if(withoutReducedVisuals.length)candidates=withoutReducedVisuals;
+  }
+  const weightedCandidates=candidates.flatMap(q=>Array(reducedVisualTypes.has(q.questionType)?1:2).fill(q));
+  const selected=pick(weightedCandidates.length?weightedCandidates:candidates);
+  const id=selected?.id??QUESTIONS.indexOf(selected);
+  const poolIndex=gameState.questionPool.indexOf(id);
+  if(poolIndex>=0)gameState.questionPool.splice(poolIndex,1);
   gameState.usedQuestionIds.push(id);
+  gameState.lastQuestionType=selected?.questionType||null;
   return getQuestionById(id);
 }
 function initParticles(){const p=$("#particles");for(let i=0;i<70;i++){const e=document.createElement("i");e.className="particle";e.style.left=Math.random()*100+"%";e.style.animationDuration=(7+Math.random()*15)+"s";e.style.animationDelay=(-Math.random()*15)+"s";p.append(e)}}
@@ -134,6 +183,7 @@ function begin(){
  gameState.status="active";gameState.stage="quiz";gameState.resultView=null;
  gameState.currentPlayer=0;gameState.currentPerk=0;gameState.currentQuestion=0;gameState.builds={};gameState.ready=[];
  gameState.firstAttemptFailed=false;gameState.cursedBuild=false;gameState.matchResult=null;
+ gameState.usedPerkNames=[];gameState.lastQuestionType=null;
  initQuestionPool();
  saveGame();show("quiz");loadQuestion();
 }
@@ -162,19 +212,19 @@ function loadQuestion(){
  $("#question").textContent=q.text;$("#feedback").textContent="";$("#feedback").className="feedback";
  const visual=$("#questionVisual");
  visual.hidden=!q.image;
- visual.innerHTML=q.image?`<figure><img src="${escapeHtml(q.image)}" alt="${escapeHtml(q.imageAlt||"Изображение для вопроса")}"><figcaption>Изображение из Dead by Daylight</figcaption></figure>`:"";
+ visual.innerHTML=q.image?`<figure><img class="${q.imageFit==="contain"?"contain":""}" src="${escapeHtml(q.image)}" alt="${escapeHtml(q.imageAlt||"Изображение для вопроса")}"><figcaption>Изображение из Dead by Daylight</figcaption></figure>`:"";
  $("#answers").innerHTML=p.answerOrder.map((answerIndex,i)=>`<button class="answer" data-answer="${answerIndex}"><b>${String.fromCharCode(65+i)}</b>&nbsp; ${escapeHtml(q.answers[answerIndex])}</button>`).join("");
  $$(".answer").forEach(b=>b.onclick=()=>answerQuestion(+b.dataset.answer));renderPlayerProgress();renderMiniLadder();
 }
 function answerQuestion(index){
  const p=currentPlayer(),q=getQuestionById(p.activeQuestionId),correct=index===q.correct;
  $$(".answer").forEach(b=>{const answerIndex=+b.dataset.answer;b.disabled=true;if(answerIndex===q.correct)b.classList.add("correct");if(answerIndex===index&&!correct)b.classList.add("wrong")});
- if(correct){p.correctForPerk++;$("#feedback").textContent=p.correctForPerk>=2?"✓ ПРАВИЛЬНО — ХОРОШИЙ ПЕРК ОТКРЫТ":"✓ ПРАВИЛЬНО — ЕЩЁ ОДИН ПРАВИЛЬНЫЙ ОТВЕТ НУЖЕН ДЛЯ ПЕРКА";$("#feedback").className="feedback good"}
- else{p.wrongForPerk++;$("#feedback").textContent=p.wrongForPerk>=2?"✕ НЕПРАВИЛЬНО — ПЛОХОЙ ПЕРК ОТКРЫТ":"✕ НЕПРАВИЛЬНО — ЕЩЁ ОДНА ОШИБКА НУЖНА ДЛЯ ПЛОХОГО ПЕРКА";$("#feedback").className="feedback bad"}
+ if(correct){p.correctForPerk++;$("#feedback").textContent=(p.correctForPerk>=2?"✓ ПРАВИЛЬНО — ХОРОШИЙ ПЕРК ОТКРЫТ":"✓ ПРАВИЛЬНО — ЕЩЁ ОДИН ПРАВИЛЬНЫЙ ОТВЕТ НУЖЕН ДЛЯ ПЕРКА")+" · ПРОДОЛЖЕНИЕ ЧЕРЕЗ 2,5 С";$("#feedback").className="feedback good"}
+ else{p.wrongForPerk++;$("#feedback").textContent=(p.wrongForPerk>=2?"✕ НЕПРАВИЛЬНО — ПЛОХОЙ ПЕРК ОТКРЫТ":"✕ НЕПРАВИЛЬНО — ЕЩЁ ОДНА ОШИБКА НУЖНА ДЛЯ ПЛОХОГО ПЕРКА")+" · ПРОДОЛЖЕНИЕ ЧЕРЕЗ 2,5 С";$("#feedback").className="feedback bad"}
  p.progress++;p.activeQuestionId=null;p.answerOrder=null;
  gameState.stage="answerFeedback";
  saveGame();
- setTimeout(advanceAfterAnswer,650);
+ setTimeout(advanceAfterAnswer,CONFIG.answerRevealMs);
 }
 function advanceAfterAnswer(){
  if(gameState.stage!=="answerFeedback")return;
@@ -185,8 +235,8 @@ function advanceAfterAnswer(){
 }
 function unlockPerk(type){
  const p=currentPlayer(),pools=rolePools(),pool=type==="good"?pools.good:pools.bad;
- const used=p.build.map(x=>x.name);let available=pool.filter(x=>!used.includes(x.name));if(!available.length)available=pool;
- const perk={...pick(available),type};
+ const usedInBuild=p.build.map(x=>x.image);
+ const perk={...takeUnusedPerk(pool,usedInBuild),type};
  p.build.push(perk);p.correctForPerk=0;p.wrongForPerk=0;
  gameState.builds[p.name]=p.build;gameState.stage="perkReveal";saveGame();showPerkReveal(perk);
 }
@@ -242,9 +292,7 @@ function buildCursedPerks(){
  gameState.players=gameState.players.map(old=>{
    const used=[];const build=[];
    for(let i=0;i<CONFIG.perksPerBuild;i++){
-     let available=pools.bad.filter(x=>!used.includes(x.name));
-     if(!available.length)available=pools.bad;
-     const perk={...pick(available),type:"bad"};build.push(perk);used.push(perk.name);
+     const perk={...takeUnusedPerk(pools.bad,used),type:"bad"};build.push(perk);used.push(perk.image);
    }
    return {...old,build,correctForPerk:0,wrongForPerk:0,progress:old.progress||0};
  });
@@ -281,12 +329,12 @@ function processMatchResult(selected){
      resetPlayersForAttempt();
      showResult("ПОБЕДА В ДОП. ПОПЫТКЕ","УРОВЕНЬ СОХРАНЁН","✦",`Победа: ${detail}. Дополнительная попытка с плохим билдом пройдена. Ты остаёшься на уровне ${old} и продолжаешь челлендж с обычным билдом.`,old,old);
    }else{
-     gameState.level=Math.min(CONFIG.maxLevel,gameState.level+CONFIG.victoryGain);
-     if(gameState.level>=CONFIG.maxLevel){
+     if(old>=CONFIG.maxLevel){
        gameState.status="completed";
        gameState.matchResult="victory";
-       showResult("МАКСИМАЛЬНЫЙ УРОВЕНЬ","ЧЕЛЛЕНДЖ ЗАВЕРШЁН","✦",`Победа: ${detail}. Уровень повышен на +1. Ты достиг максимального уровня ${CONFIG.maxLevel}. Этот челлендж больше нельзя продолжить.`,old,gameState.level);
+       showResult("МАКСИМАЛЬНЫЙ УРОВЕНЬ ПРОЙДЕН","ЧЕЛЛЕНДЖ ЗАВЕРШЁН","✦",`Победа: ${detail}. Ты прошёл финальный ${CONFIG.maxLevel} уровень. Этот челлендж завершён.`,old,old);
      }else{
+       gameState.level=Math.min(CONFIG.maxLevel,old+CONFIG.victoryGain);
        gameState.status="active";
        resetPlayersForAttempt();
        showResult("ПОБЕДА","УРОВЕНЬ ПОВЫШЕН","✦",`Победа: ${detail}. Следующий уровень начинается с нового обычного билда.`,old,gameState.level);
@@ -349,6 +397,19 @@ function resumeChallenge(id){
  }
  show("quiz");loadQuestion();
 }
+function deleteChallenge(id){
+ const entry=gameState.history.find(x=>x.challengeId===id);
+ if(!entry)return toast("ЧЕЛЛЕНДЖ НЕ НАЙДЕН");
+ const label=(entry.players||[]).join(", ")||"без имени";
+ if(!confirm(`Удалить этот челлендж (${label}, уровень ${entry.level??0})?`))return;
+ gameState.history=gameState.history.filter(x=>x.challengeId!==id);
+ if(gameState.challengeId===id){
+   gameState.challengeId=null;gameState.status="idle";gameState.stage=null;gameState.resultView=null;
+   gameState.players=[];gameState.builds={};gameState.ready=[];gameState.questionPool=[];gameState.usedQuestionIds=[];
+ }
+ localStorage.setItem(KEY,JSON.stringify(gameState));
+ showHistory();toast("ЧЕЛЛЕНДЖ УДАЛЁН");
+}
 function showHistory(){
  const list=$("#historyList");
  list.innerHTML=gameState.history.length?gameState.history.slice(0,30).map((h,i)=>{
@@ -361,7 +422,8 @@ function showHistory(){
      <small>УРОВЕНЬ ${h.level??0} · ${statusText}</small></div>
      <div class="history-actions">
        ${resumable?`<button class="btn small" data-resume="${escapeHtml(h.challengeId)}">ПРОДОЛЖИТЬ</button>`:""}
-       ${finished?`<b>${h.status==="completed"?"✓ ЗАВЕРШЁН":"✕ ПРОИГРАН"}`:""}
+       ${finished?`<b>${h.status==="completed"?"✓ ЗАВЕРШЁН":"✕ ПРОИГРАН"}</b>`:""}
+       <button class="btn small danger" data-delete-challenge="${escapeHtml(h.challengeId)}">УДАЛИТЬ</button>
      </div>
    </div>`;
  }).join(""):`<div class="panel glass"><p class="eyebrow">НЕТ ЗАПИСЕЙ</p><h2>ИСТОРИЯ ЧЕЛЛЕНДЖЕЙ ПУСТА</h2></div>`;
@@ -372,6 +434,8 @@ document.addEventListener("click",e=>{
  const perkButton=e.target.closest("[data-perk-image]");if(perkButton){openPerkDetails(perkButton.dataset.perkImage);return}
  const resume=e.target.closest("[data-resume]");
  if(resume){resumeChallenge(resume.dataset.resume);return}
+ const deleteButton=e.target.closest("[data-delete-challenge]");
+ if(deleteButton){deleteChallenge(deleteButton.dataset.deleteChallenge);return}
  const a=e.target.closest("[data-action]");if(!a)return;
  const act=a.dataset.action;
  if(act==="start")show("mode");
