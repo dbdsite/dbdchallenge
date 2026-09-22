@@ -8,9 +8,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Угольная башня",
     "realmEnglish": "The MacMillan Estate",
     "realmRussian": "Поместье Макмилан",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Coal_Tower",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Coal_Tower",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Угольная башня",
@@ -20,10 +17,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-01.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Ind_CoalTower.png?52447f",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 168,
     "category": "КАРТЫ",
@@ -32,9 +26,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Стонущий склад",
     "realmEnglish": "The MacMillan Estate",
     "realmRussian": "Поместье Макмилан",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Groaning_Storehouse",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Groaning_Storehouse",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Стонущий склад",
@@ -44,10 +35,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-02.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Ind_Storehouse.png?cac315",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 169,
     "category": "КАРТЫ",
@@ -56,9 +44,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Завод страданий",
     "realmEnglish": "The MacMillan Estate",
     "realmRussian": "Поместье Макмилан",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Ironworks_of_Misery",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Ironworks_of_Misery",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Завод страданий",
@@ -68,10 +53,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-03.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Ind_Foundry.png?bc212d",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 170,
     "category": "КАРТЫ",
@@ -80,9 +62,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Лесная опушка",
     "realmEnglish": "The MacMillan Estate",
     "realmRussian": "Поместье Макмилан",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Shelter_Woods",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Shelter_Woods",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Лесная опушка",
@@ -92,10 +71,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-04.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Ind_Forest.png/640px-IconMap_Ind_Forest.png?3f3f5c",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 171,
     "category": "КАРТЫ",
@@ -104,9 +80,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Удушающая яма",
     "realmEnglish": "The MacMillan Estate",
     "realmRussian": "Поместье Макмилан",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Suffocation_Pit",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Suffocation_Pit",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Удушающая яма",
@@ -116,10 +89,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-05.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Ind_Mine.png?97408e",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 172,
     "category": "КАРТЫ",
@@ -128,9 +98,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Место упокоения Азарова",
     "realmEnglish": "Autohaven Wreckers",
     "realmRussian": "Свалка Автохевен",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Azarov%27s_Resting_Place",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Azarov%27s_Resting_Place",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Место упокоения Азарова",
@@ -140,10 +107,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-06.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Jnk_Office.png?bfa408",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 173,
     "category": "КАРТЫ",
@@ -152,9 +116,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Кровавая лачуга",
     "realmEnglish": "Autohaven Wreckers",
     "realmRussian": "Свалка Автохевен",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Blood_Lodge",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Blood_Lodge",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Кровавая лачуга",
@@ -164,10 +125,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-07.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Jnk_Lodge.png?56a299",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 174,
     "category": "КАРТЫ",
@@ -176,9 +134,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Гэс Хевен",
     "realmEnglish": "Autohaven Wreckers",
     "realmRussian": "Свалка Автохевен",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Gas_Heaven",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Gas_Heaven",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Гэс Хевен",
@@ -188,10 +143,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-08.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Jnk_GasStation.png?2d111d",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 175,
     "category": "КАРТЫ",
@@ -200,9 +152,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Зона свалки",
     "realmEnglish": "Autohaven Wreckers",
     "realmRussian": "Свалка Автохевен",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Wreckers%27_Yard",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Wreckers%27_Yard",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Зона свалки",
@@ -212,10 +161,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-09.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Jnk_Scrapyard.png?405905",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 176,
     "category": "КАРТЫ",
@@ -224,9 +170,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Магазин барахольщика",
     "realmEnglish": "Autohaven Wreckers",
     "realmRussian": "Свалка Автохевен",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Wretched_Shop",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Wretched_Shop",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Магазин барахольщика",
@@ -236,10 +179,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-10.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Jnk_Garage.png?838630",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 177,
     "category": "КАРТЫ",
@@ -248,9 +188,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Разрушенный хлев",
     "realmEnglish": "Coldwind Farm",
     "realmRussian": "Ферма Колдвинд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Fractured_Cowshed",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Fractured_Cowshed",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Разрушенный хлев",
@@ -260,10 +197,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-11.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Frm_Barn.png?466918",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 178,
     "category": "КАРТЫ",
@@ -272,9 +206,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Заброшенная скотобойня",
     "realmEnglish": "Coldwind Farm",
     "realmRussian": "Ферма Колдвинд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Rancid_Abattoir",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Rancid_Abattoir",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Заброшенная скотобойня",
@@ -284,10 +215,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-12.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Frm_Slaughterhouse.png?24a801",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 179,
     "category": "КАРТЫ",
@@ -296,9 +224,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Сгнившие поля",
     "realmEnglish": "Coldwind Farm",
     "realmRussian": "Ферма Колдвинд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Rotten_Fields",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Rotten_Fields",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Сгнившие поля",
@@ -308,10 +233,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-13.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Frm_Cornfield.png?e818d4",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 180,
     "category": "КАРТЫ",
@@ -320,9 +242,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Дом Томпсонов",
     "realmEnglish": "Coldwind Farm",
     "realmRussian": "Ферма Колдвинд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Thompson_House",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Thompson_House",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Дом Томпсонов",
@@ -332,10 +251,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-14.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Frm_Farmhouse.png?5717c1",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 181,
     "category": "КАРТЫ",
@@ -344,9 +260,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Ручей страданий",
     "realmEnglish": "Coldwind Farm",
     "realmRussian": "Ферма Колдвинд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Torment_Creek",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Torment_Creek",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Ручей страданий",
@@ -356,10 +269,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-15.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Frm_Silo.png?e4ae15",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 182,
     "category": "КАРТЫ",
@@ -368,9 +278,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Отделение для буйных",
     "realmEnglish": "Crotus Prenn Asylum",
     "realmRussian": "Психлечебница «Кротус Пренн»",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Disturbed_Ward",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Disturbed_Ward",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Отделение для буйных",
@@ -380,10 +287,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-16.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Asy_Asylum.png?a919e7",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 183,
     "category": "КАРТЫ",
@@ -392,9 +296,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Часовня отца Кэмпбелла",
     "realmEnglish": "Crotus Prenn Asylum",
     "realmRussian": "Психлечебница «Кротус Пренн»",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Father_Campbell%27s_Chapel",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Father_Campbell%27s_Chapel",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Часовня отца Кэмпбелла",
@@ -404,10 +305,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-17.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Asy_Chapel.png?eb0181",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 184,
     "category": "КАРТЫ",
@@ -416,9 +314,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Переулок Лэмпкин",
     "realmEnglish": "Haddonfield",
     "realmRussian": "Хэддонфилд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Lampkin_Lane",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Lampkin_Lane",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Переулок Лэмпкин",
@@ -428,10 +323,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-18.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Sub_Street.png?517984",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 185,
     "category": "КАРТЫ",
@@ -440,9 +332,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Бледная роза",
     "realmEnglish": "Backwater Swamp",
     "realmRussian": "Гнилое болото",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Pale_Rose",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Pale_Rose",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Бледная роза",
@@ -452,10 +341,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-19.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Swp_ThePaleRose.png?56f1d5",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 186,
     "category": "КАРТЫ",
@@ -464,9 +350,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Чудовищная кладовая",
     "realmEnglish": "Backwater Swamp",
     "realmRussian": "Гнилое болото",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Grim_Pantry",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Grim_Pantry",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Чудовищная кладовая",
@@ -476,10 +359,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-20.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Swp_GrimPantry.png?f474d9",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 187,
     "category": "КАРТЫ",
@@ -488,9 +368,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Лечебный зал",
     "realmEnglish": "Léry's Memorial Institute",
     "realmRussian": "Мемориальный институт Лэри",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Treatment_Theatre",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Treatment_Theatre",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Лечебный зал",
@@ -500,10 +377,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-21.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Hos_Treatment.png?3f0e48",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 188,
     "category": "КАРТЫ",
@@ -512,9 +386,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Обитель матери",
     "realmEnglish": "Red Forest",
     "realmRussian": "Красный лес",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Mother%27s_Dwelling",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Mother%27s_Dwelling",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Обитель матери",
@@ -524,10 +395,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-22.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Brl_MadHouse.png/640px-IconMap_Brl_MadHouse.png?920106",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 189,
     "category": "КАРТЫ",
@@ -536,9 +404,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Храм очищения",
     "realmEnglish": "Red Forest",
     "realmRussian": "Красный лес",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Temple_of_Purgation",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Temple_of_Purgation",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Храм очищения",
@@ -548,10 +413,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-23.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Brl_Temple.png/640px-IconMap_Brl_Temple.png?6d805e",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 190,
     "category": "КАРТЫ",
@@ -560,9 +422,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Детский сад Бэдхэм",
     "realmEnglish": "Springwood",
     "realmRussian": "Спрингвуд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Badham_Preschool",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Badham_Preschool",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Детский сад Бэдхэм",
@@ -572,10 +431,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-24.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Eng_Elmstreet.png?fd146e",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 191,
     "category": "КАРТЫ",
@@ -584,9 +440,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Игра",
     "realmEnglish": "Gideon Meat Plant",
     "realmRussian": "Мясокомбинат Гидеона",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Game",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Game",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Игра",
@@ -596,10 +449,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-25.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Fin_TheGame.png?f6b6a8",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 192,
     "category": "КАРТЫ",
@@ -608,9 +458,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Семейная резиденция",
     "realmEnglish": "Yamaoka Estate",
     "realmRussian": "Поместье Ямаоки",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Family_Residence",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Family_Residence",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Семейная резиденция",
@@ -620,10 +467,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-26.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Hti_Manor.png?56e50e",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 193,
     "category": "КАРТЫ",
@@ -632,9 +476,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Прибежище гнева",
     "realmEnglish": "Yamaoka Estate",
     "realmRussian": "Поместье Ямаоки",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Sanctum_of_Wrath",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Sanctum_of_Wrath",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Прибежище гнева",
@@ -644,10 +485,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-27.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Hti_Shrine.png?1247db",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 194,
     "category": "КАРТЫ",
@@ -656,9 +494,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Курорт «Гора Ормонд»",
     "realmEnglish": "Ormond",
     "realmRussian": "Ормонд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Mount_Ormond_Resort",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Mount_Ormond_Resort",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Курорт «Гора Ормонд»",
@@ -668,10 +503,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-28.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Kny_Cottage.png?d84613",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 195,
     "category": "КАРТЫ",
@@ -680,9 +512,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Шахта озера Ормонд",
     "realmEnglish": "Ormond",
     "realmRussian": "Ормонд",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Ormond_Lake_Mine",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Ormond_Lake_Mine",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Шахта озера Ормонд",
@@ -692,10 +521,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-29.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Kny_Gelatolevel01.png/640px-IconMap_Kny_Gelatolevel01.png?4d001f",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 196,
     "category": "КАРТЫ",
@@ -704,9 +530,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Подземный комплекс",
     "realmEnglish": "Hawkins National Laboratory",
     "realmRussian": "Национальная лаборатория Хокинса",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Underground_Complex",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Underground_Complex",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Подземный комплекс",
@@ -716,10 +539,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-30.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Qat_Laboratory.png?ee4b93",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 197,
     "category": "КАРТЫ",
@@ -728,9 +548,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Салун «Мертвяк вусмерть»",
     "realmEnglish": "Grave of Glenvale",
     "realmRussian": "Могила в Гленвейле",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Dead_Dawg_Saloon",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Dead_Dawg_Saloon",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Салун «Мертвяк вусмерть»",
@@ -740,10 +557,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-31.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Ukr_Saloon.png?85f881",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 198,
     "category": "КАРТЫ",
@@ -752,9 +566,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Начальная школа Мидвич",
     "realmEnglish": "Silent Hill",
     "realmRussian": "Сайлент-Хилл",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Midwich_Elementary_School",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Midwich_Elementary_School",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Начальная школа Мидвич",
@@ -764,10 +575,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-32.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Wal_Level01.png?bf4eec",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 199,
     "category": "КАРТЫ",
@@ -776,8 +584,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Полицейский участок Раккун-Сити",
     "realmEnglish": "Raccoon City",
     "realmRussian": "Раккун-Сити",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Raccoon_City_Police_Station",
-    "verifiedAt": "2026-09-18",
     "text": "В каком режиме доступна исходная версия карты «Полицейский участок Раккун-Сити» с обоими крыльями?",
     "answers": [
       "2v8",
@@ -795,9 +601,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Восточное крыло участка Раккун-Сити",
     "realmEnglish": "Raccoon City",
     "realmRussian": "Раккун-Сити",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Raccoon_City_Police_Station_East_Wing",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Raccoon_City_Police_Station_East_Wing",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Восточное крыло участка Раккун-Сити",
@@ -807,10 +610,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-34.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Ecl_Eclipselevel01.png?e8974c",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 201,
     "category": "КАРТЫ",
@@ -819,9 +619,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Западное крыло участка Раккун-Сити",
     "realmEnglish": "Raccoon City",
     "realmRussian": "Раккун-Сити",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Raccoon_City_Police_Station_West_Wing",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Raccoon_City_Police_Station_West_Wing",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Западное крыло участка Раккун-Сити",
@@ -831,10 +628,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-35.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Ecl_Orionlevel01.png?ae3bec",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 202,
     "category": "КАРТЫ",
@@ -843,9 +637,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Воронье гнездовье",
     "realmEnglish": "Forsaken Boneyard",
     "realmRussian": "Заброшенное кладбище",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Eyrie_of_Crows",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Eyrie_of_Crows",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Воронье гнездовье",
@@ -855,10 +646,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-36.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/IconMap_Ion_Ionlevel01.png?b48bf3",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 203,
     "category": "КАРТЫ",
@@ -867,9 +655,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Мёртвые пески",
     "realmEnglish": "Forsaken Boneyard",
     "realmRussian": "Заброшенное кладбище",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Dead_Sands",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Dead_Sands",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Мёртвые пески",
@@ -879,10 +664,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-37.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Ice_Level01.png/640px-IconMap_Ice_Level01.png?c0c476",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 166,
     "category": "КАРТЫ",
@@ -891,9 +673,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Сад счастья",
     "realmEnglish": "Withered Isle",
     "realmRussian": "Зачахший остров",
-    "sourceUrl": "https://deadbydaylight.com/game/maps/",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Garden_of_Joy",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Сад счастья",
@@ -903,10 +682,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/garden-of-joy.jpg",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.com/static/217a63a3b20938d61facec2e1c9c8c78/23522/DBD_CH_24_Garden_Of_Joy_House_1920x1080_f0ebfc67bd.jpg",
-    "imageCredit": "Behaviour Interactive"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 164,
     "category": "КАРТЫ",
@@ -915,9 +691,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Площадь Гринвилла",
     "realmEnglish": "Withered Isle",
     "realmRussian": "Зачахший остров",
-    "sourceUrl": "https://deadbydaylight.com/game/maps/",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Greenville_Square",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Площадь Гринвилла",
@@ -927,10 +700,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/greenville-square.jpg",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.com/static/3747406016e30ca89b5dd4aee98990f6/23522/DBD_Apple_Pie_Screenshot_Statue_1920x1080_VF_b0e135fb5c.jpg",
-    "imageCredit": "Behaviour Interactive"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 204,
     "category": "КАРТЫ",
@@ -939,9 +709,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Пиццерия Фредди Фазбера",
     "realmEnglish": "Withered Isle",
     "realmRussian": "Зачахший остров",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Freddy_Fazbear%27s_Pizza",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Freddy_Fazbear%27s_Pizza",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Пиццерия Фредди Фазбера",
@@ -951,10 +718,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-40.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Meteor_Applepielevel02.png/640px-IconMap_Meteor_Applepielevel02.png?9c3c1a",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 205,
     "category": "КАРТЫ",
@@ -963,9 +727,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Падшее убежище",
     "realmEnglish": "Withered Isle",
     "realmRussian": "Зачахший остров",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Fallen_Refuge",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Fallen_Refuge",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Падшее убежище",
@@ -975,10 +736,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-41.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Meteor_Applepielevel03.png/640px-IconMap_Meteor_Applepielevel03.png?268247",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 206,
     "category": "КАРТЫ",
@@ -987,9 +745,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Разрушенная площадь",
     "realmEnglish": "The Decimated Borgo",
     "realmRussian": "Разорённая деревушка Борго",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Shattered_Square",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/The_Shattered_Square",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Разрушенная площадь",
@@ -999,10 +754,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-42.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Qtm_Quantumlevel01.png/640px-IconMap_Qtm_Quantumlevel01.png?2b6b5b",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 207,
     "category": "КАРТЫ",
@@ -1011,9 +763,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Забытые руины",
     "realmEnglish": "The Decimated Borgo",
     "realmRussian": "Разорённая деревушка Борго",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Forgotten_Ruins",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Forgotten_Ruins",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Забытые руины",
@@ -1023,10 +772,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-43.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Qtm_Churroslevel01.png/640px-IconMap_Qtm_Churroslevel01.png?aca637",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 165,
     "category": "КАРТЫ",
@@ -1035,9 +781,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Площадка Тоба",
     "realmEnglish": "Dvarka Deepwood",
     "realmRussian": "Заросли Дварки",
-    "sourceUrl": "https://deadbydaylight.com/game/maps/",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Toba_Landing",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Площадка Тоба",
@@ -1047,10 +790,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/toba-landing.jpg",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.com/static/b5bff0b3396758e09a9cb6ccc9e38792/23522/DBD_CH_28_Map_Gates_25127f3568.jpg",
-    "imageCredit": "Behaviour Interactive"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 208,
     "category": "КАРТЫ",
@@ -1059,9 +799,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Крушение «Ностромо»",
     "realmEnglish": "Dvarka Deepwood",
     "realmRussian": "Заросли Дварки",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Nostromo_Wreckage",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Nostromo_Wreckage",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Крушение «Ностромо»",
@@ -1071,10 +808,7 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-45.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_Uba_Wormholelevel01.png/640px-IconMap_Uba_Wormholelevel01.png?e13d8b",
-    "imageCredit": "Dead by Daylight Wiki"
-  },
+    "imageAlt": "Скриншот карты из Dead by Daylight"},
   {
     "id": 209,
     "category": "КАРТЫ",
@@ -1083,9 +817,6 @@ window.MAP_QUESTIONS = [
     "mapRussian": "Иллюзия Трюкача",
     "realmEnglish": "Sleepless District",
     "realmRussian": "Бессонный район",
-    "sourceUrl": "https://deadbydaylight.wiki.gg/wiki/Trickster%27s_Delusion",
-    "verifiedAt": "2026-09-18",
-    "mapSourceUrl": "https://deadbydaylight.wiki.gg/wiki/Trickster%27s_Delusion",
     "text": "Какая карта показана на изображении?",
     "answers": [
       "Иллюзия Трюкача",
@@ -1095,9 +826,6 @@ window.MAP_QUESTIONS = [
     ],
     "correct": 0,
     "image": "assets/questions/maps/map-46.png",
-    "imageAlt": "Скриншот карты из Dead by Daylight",
-    "imageSourceUrl": "https://deadbydaylight.wiki.gg/images/thumb/IconMap_QuiLevel01.png/640px-IconMap_QuiLevel01.png?c22b21",
-    "imageCredit": "Dead by Daylight Wiki"
-  }
+    "imageAlt": "Скриншот карты из Dead by Daylight"}
 ];
 window.QUESTIONS.push(...window.MAP_QUESTIONS);
